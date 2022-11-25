@@ -4,14 +4,15 @@ const stopBtn = document.querySelector('button[data-stop]');
 // console.log(stopBtn);
 const bodyRef = document.querySelector('body');
 // console.log(bodyRef);
+let intervalId = null;
 startBtn.addEventListener('click', changeColor);
 stopBtn.addEventListener('click', stopChange);
+stopBtn.disabled = true;
 function changeColor(e) {
-    startBtn.setAttribute('disabled', 'disabled');
-    stopBtn.removeAttribute('disabled');
-    timerId = setInterval(() => {
-        const color = getRandomHexColor();
-        bodyRef.style.backgroundColor = `${color}`;
+    startBtn.disabled = true;
+    stopBtn.disabled = false;
+    intervalId = setInterval(() => {
+       bodyRef.style.backgroundColor = getRandomHexColor();
     }, 1000);    
 }
 
@@ -20,7 +21,7 @@ function getRandomHexColor() {
 }
 
 function stopChange() {
-    stopBtn.setAttribute('disabled', 'disabled');
-    startBtn.removeAttribute('disabled');
-    clearInterval(timerId);
+    stopBtn.disabled = true;
+    startBtn.disabled = false;
+    clearInterval(intervalId);
 }
